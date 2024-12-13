@@ -1,5 +1,5 @@
 package src;
-import utils.Server;
+import src.utils.Server;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,8 +20,7 @@ public class GeburtstagsServer extends Server {
     private Date processDate(String pDate)
         throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = sdf.parse(pDate);
-        return date;
+        return sdf.parse(pDate);
     }
 
     private Date getCurrentDate() throws ParseException {
@@ -31,9 +30,13 @@ public class GeburtstagsServer extends Server {
         return processDate(formattedDate);
     }
 
-    public void processMessage(String pClientIP, int pClientPort, String pMessage) throws ParseException {
-        var diff = TimeUnit.DAYS.convert(Math.abs(processDate(pMessage).getTime() - getCurrentDate().getTime()), TimeUnit.MILLISECONDS);
-        send(pClientIP, pClientPort, String.valueOf(diff));
+    public void processMessage(String pClientIP, int pClientPort, String pMessage){
+        try {
+            var diff = TimeUnit.DAYS.convert(Math.abs(processDate(pMessage).getTime() - getCurrentDate().getTime()), TimeUnit.MILLISECONDS);
+            send(pClientIP, pClientPort, String.valueOf(diff));
+        } catch (Exception ignored) {
+
+        }
     }
     public void processClosingConnection(String pClientIP, int pClientPort) {
     }
