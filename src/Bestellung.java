@@ -1,11 +1,22 @@
 package src;
 
+import src.utils.List;
+
 public class Bestellung {
     private boolean bestaetigt;
     private int idnr;
+    private List<Einhornfurzkissen> warenListe;
 
-    public Bestellung(Einhornfurzkissen pWare) {
+    public Bestellung() {
+        warenListe = new List<>();
+    }
 
+    public List<Einhornfurzkissen> getWarenListe() {
+        return warenListe;
+    }
+
+    public void addWare(Einhornfurzkissen pWare) {
+        warenListe.append(pWare);
     }
 
     public boolean getBestaetigt() {
